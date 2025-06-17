@@ -7,9 +7,8 @@
   
   Step:
   1. Read password list
-  2. Brute-force password using the Logic:
-      if ('New passwords do not match') in password AND (new_password1 != new password2)
-  3. Login as 'carlos'
+  2. Brute-force password using the Logic (login as wiener before every try to bypass blocking)
+  3. Wait 1 minute to bypass blocking and login as 'carlos'
 
   Author: D4mn20
 """
