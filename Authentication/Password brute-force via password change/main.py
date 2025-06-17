@@ -14,6 +14,7 @@
 """
 import argparse
 from colorama import Fore
+import time
 
 import requests
 from urllib3.exceptions import InsecureRequestWarning
@@ -48,6 +49,7 @@ def main():
   if not password:
     print(f"{Fore.RED}[-] Could not found the valid password to 'carlos' account!{Fore.RESET}")
 
+  time.sleep(60)
   print(f"{Fore.YELLOW}Step 3.{Fore.RESET} Login as 'carlos'...")
   if login(session, url, {"username":"carlos", "password": password}):
     print(f"{Fore.GREEN}[+] Lab Solved!{Fore.RESET}")
