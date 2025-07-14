@@ -7,7 +7,7 @@
     3. Access the admin panel
     4. Delete the 'carlos' account
 
-    Author: D4mn20
+    Author: N00BCYB0T
 
 """
 

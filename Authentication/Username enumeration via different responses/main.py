@@ -7,7 +7,7 @@
   3. Enumerate Password
   4. Login using the valid username/password
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import time

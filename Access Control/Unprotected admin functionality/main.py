@@ -5,7 +5,7 @@ Steps:
 1. Enumerate the robots.txt file to identify whether an admin panel is listed and check if it is accessible directly.
 2. If accessible, use the admin panel to delete the carlos user account.
 
-Author: D4mn20
+Author: N00BCYB0T
 """
 
 import argparse

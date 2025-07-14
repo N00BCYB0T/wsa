@@ -7,7 +7,7 @@ Step:
    {"username":"carlos", "password": ["abcdef", "fedcba", ...]}
 3. If login is successful (302 redirect), confirm access
 
-Author: D4mn20
+Author: N00BCYB0T
 """
 
 import argparse

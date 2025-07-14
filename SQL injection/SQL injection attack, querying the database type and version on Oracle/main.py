@@ -5,7 +5,7 @@
   1. Inject payload into 'category' query parameter
   2. Observe that the database banner is returned in the response
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import requests

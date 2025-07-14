@@ -5,7 +5,7 @@ Steps:
 1. Crawl the login page and look for any disclosed admin paths, then try to access them.
 2. If accessible, use the admin panel to delete the carlos user account.
 
-Author: D4mn20
+Author: N00BCYB0T
 """
 
 import argparse

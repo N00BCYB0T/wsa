@@ -9,7 +9,7 @@
   4. Brute force the password of that valid username
   5. Login with the valid credentials
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import time

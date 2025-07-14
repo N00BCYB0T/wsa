@@ -5,7 +5,7 @@
   1. Brute-force the MFA code and login as 'carlos:montoya' before each attempt to not be logged out
   2. After discovering the MFA code, access /my-account to finish the lab
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 from bs4 import BeautifulSoup

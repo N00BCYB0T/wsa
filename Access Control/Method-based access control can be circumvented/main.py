@@ -6,7 +6,7 @@ Exploit steps:
 2. Send a GET request to /admin-roles?username=wiener
    -> Bypasses access control enforced only on POST method
 
-Author: D4mn20
+Author: N00BCYB0T
 """
 
 import argparse

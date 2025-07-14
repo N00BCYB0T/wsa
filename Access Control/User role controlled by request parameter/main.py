@@ -7,7 +7,7 @@
     3. Refresh the session acessing /my-account?id=wiener
     4. Access the /admin page and delete 'carlos' account
 
-    Author: D4mn20
+    Author: N00BCYB0T
 
 """
 

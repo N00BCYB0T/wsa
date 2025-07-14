@@ -7,7 +7,7 @@
   3. Change the 'carlos' password using the token
   4. Login as 'carlos' using the new password
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 
 import argparse

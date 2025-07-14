@@ -8,7 +8,7 @@
   4. After determining the number of columns, replace each column with the desired text one at a time
   5. Repeat this process until you receive a valid response
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import requests

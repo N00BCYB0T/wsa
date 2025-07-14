@@ -7,6 +7,7 @@
   3. Decode cookie to get username and password
   4. Access '/my-account' and delete the user account
 
+  Author: N00BCYB0T
 """
 import argparse
 import re

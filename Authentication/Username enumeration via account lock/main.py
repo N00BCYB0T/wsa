@@ -7,7 +7,7 @@
   3. Brute-force this user's password
   4. Access their account page
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import time

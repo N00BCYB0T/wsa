@@ -6,6 +6,8 @@
   2. Craft the stay-logged-in cookie for user 'carlos' and Brute-force the password 
      using it
   3. Use the valid stay-logged-in cookie to access /my-account
+
+  Author: N00BCYB0T
 """
 import argparse
 from colorama import Fore
