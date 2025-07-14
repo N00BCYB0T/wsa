@@ -5,7 +5,7 @@
   1. Inject payload into 'TrackingId' cookie to cause a 10 seconds delay
   2. Wait for the response
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import requests

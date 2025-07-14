@@ -10,7 +10,7 @@
   2. Brute-force password using the Logic (login as wiener before every try to bypass blocking)
   3. Wait 1 minute to bypass blocking and login as 'carlos'
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 from colorama import Fore

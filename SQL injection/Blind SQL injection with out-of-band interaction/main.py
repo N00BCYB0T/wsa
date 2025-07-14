@@ -5,7 +5,7 @@
   1. Inject payload into 'TrackingId' cookie to make a DNS lookup to your burp collaborator domain
   2. Check your collaborator for incoming traffic
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import requests

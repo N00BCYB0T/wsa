@@ -6,7 +6,7 @@
   2. Add one additional null column at a time
   3. Repeat this process, increasing the number of columns until you receive a valid response
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import requests

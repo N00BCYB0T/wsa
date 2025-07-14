@@ -5,7 +5,7 @@
   1. Log in carlos:montoya
   2. Navigate to /my-account after first factor
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import time

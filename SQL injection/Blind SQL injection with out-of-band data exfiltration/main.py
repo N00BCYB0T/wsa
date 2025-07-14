@@ -6,7 +6,7 @@
   2. Get the administrator password from your burp collaborator
   3. Login as administrator
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import requests

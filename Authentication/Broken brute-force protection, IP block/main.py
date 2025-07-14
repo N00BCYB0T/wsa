@@ -7,7 +7,7 @@
       each try to bypass blocking)
   3. Fetch carlos profile
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import time

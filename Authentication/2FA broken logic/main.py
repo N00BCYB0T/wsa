@@ -7,7 +7,7 @@
   3. Brute force the mfa-code of carlos
   3. Fetch the account page using carlos account
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 from colorama import Fore

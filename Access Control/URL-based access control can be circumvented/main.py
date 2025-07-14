@@ -7,7 +7,7 @@
     2. The back-end will interpret the path as `/admin/delete?username=carlos`,
        bypassing the front-end access control.
 
-    Author: D4mn20
+    Author: N00BCYB0T
 """
 
 import argparse

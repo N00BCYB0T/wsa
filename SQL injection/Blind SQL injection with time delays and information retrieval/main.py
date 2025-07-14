@@ -9,7 +9,7 @@
   5. Login as the administrator
   6. Fetch the administrator profile
 
-  Author: D4mn20
+  Author: N00BCYB0T
 """
 import argparse
 import requests
