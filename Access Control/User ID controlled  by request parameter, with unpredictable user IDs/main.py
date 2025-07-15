@@ -48,7 +48,7 @@ def main():
 
     response = fetch(session, f"/my-account?id={carlos_id}")
 
-    api_key_matches = re.findall("Your API Key is: (.+)</div>", response.text)
+    api_key_matches = re.search("Your API Key is: (.+)</div>", response.text)
     if not api_key_matches:
         print(f"{Fore.RED}[!] API Key not found!{Fore.RESET}")
         exit(1)
