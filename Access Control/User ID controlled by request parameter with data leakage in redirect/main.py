@@ -40,7 +40,7 @@ def main():
         "username": "wiener",
         "password": "peter"
     }
-    wiener = login(session, data)
+    login(session, data)
 
     response = fetch(session, f"/my-account?id=carlos")
 
@@ -60,7 +60,7 @@ def main():
 
 def login(session, data):
     try:
-        return session.post(f"{URL}/login", data, allow_redirects=False)
+        session.post(f"{URL}/login", data, allow_redirects=False)
     except:
         print(f"{Fore.RED}[!] Failed to login as {data['username']} through exception{Fore.RESET}")
         exit(1)
