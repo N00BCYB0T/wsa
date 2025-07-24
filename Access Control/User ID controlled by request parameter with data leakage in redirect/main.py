@@ -1,5 +1,5 @@
 """
-    Lab: User ID controlled by request parameter
+    Lab: User ID controlled by request parameter with data leakage in redirect
 
     Exploit steps:
     1. Log in using the supplied credentials and access your account page.
