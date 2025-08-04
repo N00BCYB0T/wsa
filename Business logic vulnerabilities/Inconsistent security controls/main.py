@@ -1,5 +1,5 @@
 """
-    Lab: Inconsistent handling of exceptional input
+    Lab: Inconsistent security controls
 
     Exploitation Steps:
     1. Retrieve CSRF token for registration
