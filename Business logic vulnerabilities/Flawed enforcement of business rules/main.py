@@ -1,5 +1,5 @@
 """
-    Lab: Authentication bypass via flawed state machine
+    Lab: Flawed enforcement of business rules
 
     Exploitation Steps:
     1. Catch the CSRF-Token from login page
