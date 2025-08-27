@@ -12,8 +12,8 @@ This script exploits email address parsing discrepancies to bypass access contro
 7. Delete carlos from the admin panel
 
 The vulnerability works by:
-- Using encoded-word format (=?utf-7?q?attacker&AEA-exploit-domain&ACA-?=@ginandjuice.shop)
-- The email parser interprets this as attacker@exploit-domain for delivery
+- Using encoded-word format (=?utf-7?q?<register_name>&AEA-exploit-domain&ACA-?=@ginandjuice.shop)
+- The email parser interprets this as <register_name>@exploit-domain for delivery
 - But the access control sees it as ending with @ginandjuice.shop
 
 Author: N00BCYB0T
