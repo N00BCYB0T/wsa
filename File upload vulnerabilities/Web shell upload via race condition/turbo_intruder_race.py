@@ -1,3 +1,7 @@
+# You can use your the Burp Repeater to do the same thing
+# Just make sure to set the appropriate headers and body for each request
+# and create a group with both requests and "Send group in parallel"
+
 def queueRequests(target, wordlists):
     engine = RequestEngine(endpoint=target.endpoint, concurrentConnections=10,)
 
@@ -16,6 +20,7 @@ def queueRequests(target, wordlists):
     engine.openGate('race1')
 
     engine.complete(timeout=60)
+
 
 
 def handleResponse(req, interesting):
