@@ -1,2 +1,0 @@
-*.burp filter=lfs diff=lfs merge=lfs -text
-.burp filter=lfs diff=lfs merge=lfs -text
